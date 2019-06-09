@@ -11,16 +11,16 @@
 
                                 <div class="form-group col-lg-4 col-md-4 col-sm-4">
                                     <label for="funcion">Funcion <span style="color:red">*</span></label>
-                                    <input type="text" id="funcion" class="form-control" placeholder="f(x,t)"
+                                    <input type="text" id="funcion" class="form-control" placeholder="f(x,y)"
                                         :value="userData.funcion" @input="userData.funcion = $event.target.value">
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-4">
-                                    <label for="t0">t0 <span style="color:red">*</span></label>
-                                    <input type="number" id="t0" class="form-control" v-model="userData.t0">
+                                    <label for="x0">x0 <span style="color:red">*</span></label>
+                                    <input type="number" id="x0" class="form-control" v-model="userData.x0">
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-sm-4">
-                                    <label for="x0">x0 <span style="color:red">*</span></label>
-                                    <input type="number" id="x0" class="form-control" v-model="userData.x0">
+                                    <label for="y0">y0 <span style="color:red">*</span></label>
+                                    <input type="number" id="y0" class="form-control" v-model="userData.y0">
                                 </div>
                                 <div class="form-group col-lg-3 col-md-3 col-sm-3">
                                     <label for="n">n <span style="color:red">*</span></label>
@@ -62,8 +62,8 @@
                     </div>
                     <div class="panel-body">
                         <p>Funcion: {{ userData.funcion }} </p>
-                        <p>t0: {{ userData.t0 }} </p>
-                        <p>x0: {{ userData.x0 }}</p>
+                        <p>x0: {{ userData.x0 }} </p>
+                        <p>y0: {{ userData.y0 }}</p>
                         <p>n: {{ userData.n }}</p>
                         <p>h: {{ userData.h }}</p>
                         <p>b: {{ userData.b }}</p>
@@ -82,8 +82,8 @@ export default {
             return {
                 userData:{
                     funcion: '',
-                    t0: 0,
                     x0: 0,
+                    y0: 0,
                     n: 0,
                     h: 0,
                     b:0,
@@ -102,7 +102,8 @@ export default {
             //     this.isSubmitted = true;
             // },
             emitToParent (event) {
-              this.$emit('recibirDatos', this.userData.funcion, this.userData.t0, this.userData.x0, this.userData.n, this.userData.h, this.userData.b, this.userData.intervalo)
+                console.log(this.userData);
+              this.$emit('recibirDatos', this.userData)
             },
         }
 }
