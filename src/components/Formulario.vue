@@ -31,7 +31,7 @@
                                     <input type="number" id="h" class="form-control" v-model="userData.h">
                                 </div>
                                 <div class="form-group col-lg-3 col-md-3 col-sm-3" >
-                                    <label for="intervalo">Intervalo(ms)</label>
+                                    <label for="intervalo">Retardo (milisegundos)</label>
                                     <input type="number" id="intervalo" class="form-control"
                                         v-model="userData.intervalo">
                                 </div>

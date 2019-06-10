@@ -2,26 +2,27 @@
 <div style="margin:3em">
         <div class="row">
             <app-formulario v-on:recibirDatos="onChildClick"></app-formulario>
+            <div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4 ">
-                    <button class="btn btn-primary btn-block" @click="showEuler">Euler</button>
+                    <button class="btn btn-info btn-block" @click="showEuler">Euler</button>
                     <br>
                     <app-euler v-if="renderComponentEuler" v-model="dataSwitch" :parentData="myData"></app-euler>
                 </div>
                 <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4 ">
-                    <button class="btn btn-primary btn-block" @click="showEulerMejorado">Euler Mejorado</button>
+                    <button class="btn btn-info btn-block" @click="showEulerMejorado">Euler Mejorado</button>
                     <br>
                     <app-euler-mejorado v-if="renderComponentEulerMejorado" :parentData="myData" v-model="dataSwitch"></app-euler-mejorado>
                 </div>
                 <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4 ">
-                    <button class="btn btn-primary btn-block" @click="showRungeKutta">Runge Kutta</button>
+                    <button class="btn btn-info btn-block" @click="showRungeKutta">Runge Kutta</button>
                     <br>
                     <app-runge v-if="renderComponentRungeKutta" :parentData="myData" v-model="dataSwitch"></app-runge>
                 </div>
 
             </div>
         </div>
-    
+    </div>
 </div>
 </template>
 <script>
@@ -112,9 +113,6 @@ export default {
 </script>
 
 <style>
-.centrado{
-    display: flex !important;
-    justify-content: center !important;
-}
+
 
 </style>

@@ -1,6 +1,5 @@
 <template>
-<div class="jumbotron jumbotron-fluid">
-    <h3 style="text-align:center">Euler Mejorado</h3>
+<div >
      <GChart
     type="LineChart"
     :data="chartData"
@@ -9,6 +8,7 @@
 </div>  
 </template>
 <script>
+// https://mathjs.org/docs/expressions/syntax.html
 import * as math from 'mathjs';
 
 export default {
@@ -24,7 +24,13 @@ export default {
 
       ],
       chartOptions: {
-        colors: ['blue']
+        colors: ['blue'],
+        hAxis: {
+           title: 't',
+        },
+        vAxis: {
+           title: 'x',
+        }  
       }
     }   
   },

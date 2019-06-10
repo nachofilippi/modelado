@@ -1,8 +1,6 @@
 <template>
 <!-- https://wikimedia.org/api/rest_v1/media/math/render/svg/e83e78cce0d440ff06da69da43da7ad3dd082b53s -->
-
-<div class="jumbotron jumbotron-fluid">
-    <h3 style="text-align:center">Runge-Kutta</h3>
+<div>
      <GChart
     type="LineChart"
     :data="chartData"
@@ -11,9 +9,13 @@
 </div>  
 </template>
 <script>
+// https://mathjs.org/docs/expressions/syntax.html
 import * as math from 'mathjs';
 
 export default {
+  props: {
+    parentData: Object
+  },
   data () {
     return {
       // Array will be automatically processed with visualization.arrayToDataTable function
@@ -22,14 +24,20 @@ export default {
         ...this.rungeKutta(this.parentData.funcion,parseInt(this.parentData.x0), parseInt(this.parentData.y0), parseInt(this.parentData.n),parseInt(this.parentData.h)).map(({ x, t }) => [x, t]),
       ],
         chartOptions: {
-            colors: ['gold']
+            colors: ['gold'],
+            hAxis: {
+           title: 't',
+           },
+          vAxis: {
+           title: 'x',
+          }  
       }
     }
   },
   methods:{
-    rungeKutta (f, t0, x0, n, h){
+    rungeKutta (formula, t0, x0, n, h){
       const parser = math.parser();
-      parser.eval(`f(x, t) = ${f}`);
+      parser.eval(`f(x, t) = ${formula}`);
 
       t0 = parseFloat(t0);
       x0 = parseFloat(x0);    
