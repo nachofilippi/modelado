@@ -7,12 +7,11 @@
                     <app-euler v-model="dataSwitch" :parentData="myData"></app-euler>
                 </div>
                 <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4">
-                    <app-euler-mejorado v-model="dataSwitch"></app-euler-mejorado>
+                    <app-euler-mejorado v-model="dataSwitch" :parentData="myData"></app-euler-mejorado>
                 </div>
                 <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4">
-                    <app-runge v-model="dataSwitch"></app-runge>
+                    <app-runge v-model="dataSwitch" :parentData="myData"></app-runge>
                 </div>
-                <button @click="showData">DAT</button>
             </div>
         </div>
     
@@ -58,10 +57,6 @@ export default {
             console.log(myData);
             this.myData = myData;
         },
-        showData(){
-            console.log('data: ', this.myData);
-            
-        }
 
     }
     
