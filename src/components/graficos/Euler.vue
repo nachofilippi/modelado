@@ -1,20 +1,11 @@
 <template>
-  <div class="jumbotron jumbotron-fluid">
-    <h3 style="text-align:center">Euler</h3>
-    <div ref="reload">
-      <GChart type="LineChart" :data="chartData" :options="chartOptions" />
-
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 Flex">
-        <button class="btn btn-primary" @click.prevent="submit">INICIAR</button>
-      </div>
-    </div>
-    <h3></h3>
-  </div>
+ <div>
+    <GChart style="width:30em" type="LineChart" :data="chartData" :options="chartOptions"/>
+ </div>
 </template>
 <script>
-import * as math from 'mathjs';
+// https://mathjs.org/docs/expressions/syntax.html
+import * as math from 'mathjs'
 
 
   var valores = new Array();
@@ -28,55 +19,52 @@ export default {
     return {
       renderComponent: false,
       chartData: [
-        ['t', 'x'],
-        ...this.eulerComun(this.parentData.funcion,this.parentData.x0, this.parentData.y0, this.parentData.n,this.parentData.h).map(({ x, t }) => [x,t])
+        ['x', 'y'],
+        // [100,200],
+        // [50,20],
+        // [3,-10]
+        ...this.eulerComun(this.parentData.funcion,parseInt(this.parentData.x0), parseInt(this.parentData.y0), parseInt(this.parentData.n),parseInt(this.parentData.h)).map(({ y, x }) => [x, y]),
       ],
       chartOptions: {
         colors: ['red'],
         hAxis: {
-            title: 't',
+           title: 'x',
         },
         vAxis: {
-            title: 'x',
-        }
+           title: 'y',
+        },
+        height: 500,
+        width: 500,
+        animation:{
+        duration: 1000,
+        easing: 'out',
+      },
       },
       
     }
   },methods:{
-    eulerComun(formula, t0, x0, n, h){
-       const parser = math.parser();
-      parser.eval(`f(x, t) = ${formula}`);
-      
-      t0 = parseFloat(t0);
-      h = parseFloat(h);
+      eulerComun(formula, x0, y0, n, h){
+      const parser = math.parser();
+      parser.eval(`f(y, x) = ${formula}`)
+
       x0 = parseFloat(x0);
+      y0 = parseFloat(y0);    
       n = parseFloat(n);
-    let values = [{ t: t0, x: x0 }];
+      h = parseFloat(h);
 
-    console.log(t0 + h, n * h + t0);
-    for (let t = t0 + h, i = 0; t <= n * h + t0; t += h, i++) {
-        const prev = values[i];
-        values.push({
-            t,
-            x: prev.x + h * parser.eval(`f(${prev.x}, ${prev.t})`)
-        })
-    }
-    return values;
-  
-  }, 
-    submit(){
-      var that = this;
-      valores = this.eulerComun(this.parentData.funcion,this.parentData.x0, this.parentData.y0, this.parentData.n,this.parentData.h);
-      console.log('valores: ', valores);
-      that.$forceUpdate()
-  }
+      let values = [{ x: x0, y: y0 }];
 
-  },
-  // watch: { 
-  //     	parentData: function(newVal, oldVal) { // watch it
-  //         console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-  //       }
-  //     }
-};
+      console.log(x0 + h, n * h + x0);
+      for (let x = x0 + h, i = 0; x <= n * h + x0; x += h, i++) {
+          const prev = values[i];
+          values.push({
+              x,
+              y: prev.y + h * parser.eval(`f(${prev.y}, ${prev.x})`)
+          })
+      }
+      return values;
+    
+    }, 
+  } 
+}
 </script>
-

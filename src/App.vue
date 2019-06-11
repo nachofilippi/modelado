@@ -2,19 +2,27 @@
 <div style="margin:3em">
         <div class="row">
             <app-formulario v-on:recibirDatos="onChildClick"></app-formulario>
+
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4">
-                    <app-euler v-model="dataSwitch" :parentData="myData"></app-euler>
+                <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4 ">
+                    <button class="btn btn-danger btn-block" @click="showEuler">Euler</button>
+                    <br>
+                    <app-euler style="width:30em;height:30em" v-if="renderComponentEuler" v-model="dataSwitch" :parentData="myData"></app-euler>
                 </div>
-                <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4">
-                    <app-euler-mejorado v-model="dataSwitch" :parentData="myData"></app-euler-mejorado>
+                <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4 ">
+                    <button class="btn btn-success btn-block" @click="showEulerMejorado">Euler Mejorado</button>
+                    <br>
+                    <app-euler-mejorado style="width:30em;height:30em" v-if="renderComponentEulerMejorado" :parentData="myData" v-model="dataSwitch"></app-euler-mejorado>
                 </div>
-                <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4">
-                    <app-runge v-model="dataSwitch" :parentData="myData"></app-runge>
+                <div class="col-xs-4 col-md-4 col-lg-4 col-sm-4 ">
+                    <button class="btn btn-warning btn-block" @click="showRungeKutta">Runge Kutta</button>
+                    <br>
+                    <app-runge v-if="renderComponentRungeKutta" :parentData="myData" v-model="dataSwitch"></app-runge>
                 </div>
+
             </div>
-        </div>
     
+    </div>
 </div>
 </template>
 <script>
@@ -26,14 +34,16 @@ import Formulario from './components/Formulario.vue';
 export default {
     data(){
         return {
+            renderComponentEuler: false,
+            renderComponentEulerMejorado: false,
+            renderComponentRungeKutta: false,
             myData:{
                 f: '',
                 x0:'',
                 y0:'',
                 n:'',
                 h:'',
-                b:'',
-                intervalo:''
+
             }
             // posts: [
             //     { id: 1, f: '' },
@@ -57,6 +67,45 @@ export default {
             console.log(myData);
             this.myData = myData;
         },
+        showEuler(){
+            console.log('data: ', this.myData);
+            this.forceRerenderEuler();
+        },
+        showEulerMejorado(){
+            console.log('data: ', this.myData);
+            this.forceRerenderEulerMejorado();
+        },
+        showRungeKutta(){
+            console.log('data: ', this.myData);
+            this.forceRerenderRungeKutta();
+        },
+        forceRerenderEuler() {
+            // Remove my-component from the DOM
+            this.renderComponentEuler = false;
+            
+            this.$nextTick(() => {
+                // Add the component back in
+                this.renderComponentEuler = true;
+            });
+        },
+        forceRerenderEulerMejorado() {
+            // Remove my-component from the DOM
+            this.renderComponentEulerMejorado = false;
+            
+            this.$nextTick(() => {
+                // Add the component back in
+                this.renderComponentEulerMejorado = true;
+            });
+        },
+        forceRerenderRungeKutta() {
+            // Remove my-component from the DOM
+            this.renderComponentRungeKutta = false;
+            
+            this.$nextTick(() => {
+                // Add the component back in
+                this.renderComponentRungeKutta = true;
+            });
+        }
 
     }
     

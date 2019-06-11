@@ -1,13 +1,16 @@
 <template>
-<div class="jumbotron jumbotron-fluid">
-    <h3 style="text-align:center">Euler Mejorado</h3>
-     <GChart type="LineChart" :data="chartData" :options="chartOptions" />
+<div >
+     <GChart
+    type="LineChart"
+    :data="chartData"
+    :options="chartOptions"   
+    />
 </div>  
 </template>
 <script>
+// https://mathjs.org/docs/expressions/syntax.html
 import * as math from 'mathjs';
 
-  var valores = new Array();
 export default {
   props: {
     parentData: Object
@@ -17,52 +20,47 @@ export default {
     return {
       // Array will be automatically processed with visualization.arrayToDataTable function
       chartData: [
-        ['t', 'x'],
-        ...this.eulerMejorado(this.parentData.funcion,this.parentData.x0, this.parentData.y0, this.parentData.n,this.parentData.h).map(({ x, t }) => [x,t])
+        ['y', 'x'],
+        ...this.eulerMejorado(this.parentData.funcion,parseInt(this.parentData.x0), parseInt(this.parentData.y0), parseInt(this.parentData.n),parseInt(this.parentData.h)).map(({ x, y }) => [x, y]),
+
       ],
       chartOptions: {
-        colors: ['blue'],
+        colors: ['green'],
         hAxis: {
-            title: 't',
+           title: 'x',
         },
         vAxis: {
-            title: 'x',
-        }
-      },
+           title: 'y',
+        },
+        height: 500,
+        width: 500, 
+      }
     }   
   },
   methods:{
-
-    eulerMejorado (formula, t0, x0, n, h) {
-
+    eulerMejorado (formula, x0, y0, n, h){
       const parser = math.parser();
-      parser.eval(`f(x, t) = ${formula}`)
-      
-        t0 = parseFloat(t0);
-        h = parseFloat(h);
-        x0 = parseFloat(x0);
-        n = parseFloat(n);
+      parser.eval(`f(y, x) = ${formula}`)
 
-      let values = [{ t: t0, x: x0 }];
-      for (let t = t0 + h, i = 0; t <= n * h + t0; t += h, i++) {
+      x0 = parseFloat(x0);
+      y0 = parseFloat(y0);    
+      n = parseFloat(n);
+      h = parseFloat(h);
+
+      let values = [{ x: x0, y: y0 }];
+      for (let x = x0 + h, i = 0; x <= n * h + x0; x += h, i++) {
           const prev = values[i];
-          const predictor = prev.x + h * parser.eval(`f(${prev.x}, ${prev.t})`);
-          const corrector = prev.x + h * 0.5 * (parser.eval(`f(${prev.x}, ${prev.t})`)
-              + parser.eval(`f(${predictor}, ${t})`));
+          const predictor = prev.y + h * parser.eval(`f(${prev.y}, ${prev.x})`);
+          const corrector = prev.y + h * 0.5 * (parser.eval(`f(${prev.y}, ${prev.x})`)
+              + parser.eval(`f(${predictor}, ${x})`));
           values.push({
-              t,
-              x: corrector
+              x,
+              y: corrector
           })
       }
       return values;
-
     }
-  },
-  watch: { 
-      	parentData: function(newVal, oldVal) { // watch it
-          console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-        }
-      }
+  }
 };
 </script>
 
