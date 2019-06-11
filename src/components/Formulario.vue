@@ -22,56 +22,24 @@
                                     <label for="y0">y0 <span style="color:red">*</span></label>
                                     <input type="number" id="y0" class="form-control" v-model="userData.y0">
                                 </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-4">
                                     <label for="n">n <span style="color:red">*</span></label>
                                     <input type="number" id="n" class="form-control" v-model="userData.n">
                                 </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-3">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-4">
                                     <label for="h">h</label>
                                     <input type="number" id="h" class="form-control" v-model="userData.h">
                                 </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-3">
-                                    <label for="b">b</label>
-                                    <input type="number" id="b" class="form-control" v-model="userData.b">
-                                </div>
-                                <div class="form-group col-lg-3 col-md-3 col-sm-3">
-                                    <label for="intervalo">Intervalo(ms)</label>
-                                    <input type="number" id="intervalo" class="form-control"
-                                        v-model="userData.intervalo">
+                                <div class="form-group col-lg-4 col-md-3 col-sm-4">
+                                    <button style="margin-top:1.8em" class="btn btn-primary btn-block" @click.prevent="emitToParent">INICIAR
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 Flex">
-                    <button class="btn btn-primary" @click.prevent="emitToParent">INICIAR
-                    </button>
-                    <app-switch v-model="dataSwitch"></app-switch>
-                </div>
-            </div>
         </form>
-        <hr>
-        <div class="row justify-content-md-center" v-if="dataSwitch">
-            <div class="col-md-auto">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>Ingresados</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>Funcion: {{ userData.funcion }} </p>
-                        <p>x0: {{ userData.x0 }} </p>
-                        <p>y0: {{ userData.y0 }}</p>
-                        <p>n: {{ userData.n }}</p>
-                        <p>h: {{ userData.h }}</p>
-                        <p>b: {{ userData.b }}</p>
-                        <p>Intervalo (ms): {{ userData.intervalo }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -87,7 +55,6 @@ export default {
                     n: 0,
                     h: 0,
                     b:0,
-                    intervalo: 0,
                 },
                 dataSwitch: true,
                 isSubmitted: false,
