@@ -1,19 +1,13 @@
-# vue-cli
+# Filippi Ignacio
 
-> A Vue.js project
+Proyecto de modelado y simulacion
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# instalar dependencias
 npm install
 
-# serve with hot reload at localhost:8080
+# levantar el servidor en localhost:8080 para probar
 npm run dev
 
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
-# modelado
