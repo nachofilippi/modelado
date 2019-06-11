@@ -23,7 +23,7 @@ export default {
         // [100,200],
         // [50,20],
         // [3,-10]
-        ...this.eulerComun(this.parentData.funcion,parseInt(this.parentData.x0), parseInt(this.parentData.y0), parseInt(this.parentData.n),parseInt(this.parentData.h)).map(({ y, x }) => [x, y]),
+        ...this.eulerComun(this.parentData.funcion,parseFloat(this.parentData.x0), parseFloat(this.parentData.y0), parseFloat(this.parentData.n),parseFloat(this.parentData.h)).map(({ y, x }) => [x, y]),
       ],
       chartOptions: {
         colors: ['red'],
@@ -35,12 +35,7 @@ export default {
         },
         height: 500,
         width: 500,
-        animation:{
-        duration: 1000,
-        easing: 'out',
       },
-      },
-      
     }
   },methods:{
       eulerComun(formula, x0, y0, n, h){
@@ -54,16 +49,17 @@ export default {
 
       let values = [{ x: x0, y: y0 }];
 
-      console.log(x0 + h, n * h + x0);
+      // console.log(x0 + h, n * h + x0);
       for (let x = x0 + h, i = 0; x <= n * h + x0; x += h, i++) {
           const prev = values[i];
           values.push({
+              // xn+1 = xn + h
               x,
+              // yi+1 = yi =hf(xi,yi)
               y: prev.y + h * parser.eval(`f(${prev.y}, ${prev.x})`)
           })
       }
       return values;
-    
     }, 
   } 
 }

@@ -20,7 +20,7 @@ export default {
     return {
       chartData: [
         ['y', 'x'],
-        ...this.rungeKutta(this.parentData.funcion,parseInt(this.parentData.x0), parseInt(this.parentData.y0), parseInt(this.parentData.n),parseInt(this.parentData.h)).map(({ y, x }) => [x, y]),
+        ...this.rungeKutta(this.parentData.funcion,parseFloat(this.parentData.x0), parseFloat(this.parentData.y0), parseFloat(this.parentData.n),parseFloat(this.parentData.h)).map(({ y, x }) => [x, y]),
       ],
         chartOptions: {
             colors: ['orange'],
@@ -44,19 +44,26 @@ export default {
       y0 = parseFloat(y0);    
       n = parseFloat(n);
       h = parseFloat(h);
-
+      
+      // values = (x,y)
       let values = [{ x: x0, y: y0 }];
       for (let x = x0 + h, i = 0; x <= n * h + x0; x += h, i++) {
+          // (xi,yi)
           const prev = values[i];
-
-          let ks = [parser.eval(`f(${prev.y}, ${prev.x})`)]
-          for (let k = 0; k < 3; k++)
-              ks.push(parser.eval(`f(${prev.y + (k === 2 ? 1 : 0.5) * ks[k] * h}, 
-                  ${prev.x + (k === 2 ? 1 : 0.5) * h})`));
-
+          // k = (fxi,fyi)
+          let k = [parser.eval(`f(${prev.y}, ${prev.x})`)]
+          // k0 hasta k3, recorre las 4 k
+          for (let j = 0; j < 3; j++){
+              // kj = f(xi + h/2,yi + kjh/2)  si j=1 o j=2
+              // kj = f(xi + h,yi + kjh) si j=3
+              k.push(parser.eval(`f(${prev.y + (j === 2 ? 1 : 0.5) * k[j] * h}, 
+                  ${prev.x + (j === 2 ? 1 : 0.5) * h})`));
+          }
           values.push({
+              // x = xi +h
               x,
-              y: prev.y + 1 / 6 * h * (ks.shift() + ks.pop() + ks.reduce((prev, curr) => prev + 2 * curr, 0))
+              // yn+1 = yn + (1/6)h [k1+ 2k2 + 2k3 +k4]
+              y: prev.y + 1 / 6 * h * (k.shift() + k.pop() + k.reduce((prev, curr) => prev + 2 * curr, 0))
           })
       }
       return values;
