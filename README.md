@@ -4,6 +4,8 @@ Proyecto de modelado y simulacion
 
 ## Build Setup
 
+Instalado Vue.js https://vuejs.org/v2/guide/
+
 ``` bash
 # instalar dependencias
 npm install
