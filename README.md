@@ -1,4 +1,4 @@
-# Filippi Ignacio
+# Filippi Ignacio, Akhil Asaad
 
 Proyecto de modelado y simulacion
 
