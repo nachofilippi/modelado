@@ -22,7 +22,7 @@ export default {
     return {
       // Array will be automatically processed with visualization.arrayToDataTable function
       chartData: [
-        ['y', 'x'],
+        ['y', 'f(x)'],
         ...this.eulerMejorado(this.parentData.funcion,parseFloat(this.parentData.x0), parseFloat(this.parentData.y0), parseFloat(this.parentData.n),parseFloat(this.parentData.h)).map(({ x, y }) => [x, y]),
 
       ],

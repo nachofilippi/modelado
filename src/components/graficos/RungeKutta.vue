@@ -19,7 +19,7 @@ export default {
   data () {
     return {
       chartData: [
-        ['y', 'x'],
+        ['y', 'f(x)'],
         ...this.rungeKutta(this.parentData.funcion,parseFloat(this.parentData.x0), parseFloat(this.parentData.y0), parseFloat(this.parentData.n),parseFloat(this.parentData.h)).map(({ y, x }) => [x, y]),
       ],
         chartOptions: {

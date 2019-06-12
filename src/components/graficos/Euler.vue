@@ -19,7 +19,7 @@ export default {
     return {
       renderComponent: false,
       chartData: [
-        ['x', 'y'],
+        ['y', 'f(x)'],
         // [100,200],
         // [50,20],
         // [3,-10]

@@ -1,6 +1,6 @@
 <template>
-<div style="margin:3em">
-        <div class="row">
+<div style="margin:3em;" class="fondo">
+        <div class="row" style=" background-color:none">
             <app-formulario v-on:recibirDatos="onChildClick"></app-formulario>
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
